@@ -25,7 +25,13 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "list": {
+      "type": "belongsTo",
+      "model": "List",
+      "foreignKey": ""
+    }
+  },
   "acls": [
     {
       "accessType": "*",

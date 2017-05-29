@@ -6,6 +6,7 @@
   "options": {
     "validateUpsert": true
   },
+  "injectOptionsFromRemoteContext": true,
   "properties": {
     "name": {
       "type": "string",
@@ -20,7 +21,12 @@
     "items": {
       "type": "hasMany",
       "model": "Item",
-      "foreignKey": ""
+      "foreignKey": "id"
+    },
+    "user": {
+      "type": "belongsTo",
+      "model": "User",
+      "foreignKey": "id"
     }
   },
   "acls": [
