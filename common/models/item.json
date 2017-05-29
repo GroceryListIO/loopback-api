@@ -29,7 +29,7 @@
     "list": {
       "type": "belongsTo",
       "model": "List",
-      "foreignKey": ""
+      "foreignKey": "id"
     }
   },
   "acls": [

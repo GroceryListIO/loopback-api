@@ -21,7 +21,7 @@
     "items": {
       "type": "hasMany",
       "model": "Item",
-      "foreignKey": "id"
+      "foreignKey": "listId"
     },
     "user": {
       "type": "belongsTo",
