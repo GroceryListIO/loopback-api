@@ -5,19 +5,72 @@ var request = require('supertest');
 var assert = require('assert');
 var app = require('../server/server');
 
-describe('Lists', function() {
+var user1Auth = '';
+
+describe('Lists - Unauthenticated', function() {
   it('Initially 0 lists', function(done) {
     app.models.List.count({}, function(err, count) {
       assert.deepEqual(count, 0);
       done();
     });
   });
-  it('Doesn\'t allow unauthenticated creation', function(done) {
+  it('Doesn\'t allow unauthenticated reading', function(done) {
+    request(app).get('/api/lists')
+    .expect(401, done);
+  });
+  it('Doesn\'t allow unauthenticated list creation', function(done) {
     request(app).post('/api/lists')
     .send({
       name: 'test list 1',
       description: 'testing unauthenticated',
     })
     .expect(401, done);
+  });
+});
+
+describe('Lists - Authenticated', function() {
+  it('Register User1', function(done) {
+    request(app).post('/api/users')
+    .send({
+      username: 'testuser1',
+      email: 'testuser1@example.org',
+      password: 'test',
+    })
+    .expect(200)
+    .then(function(response) {
+      assert(response.body.email, 'testuser1@example.org');
+      assert(response.body.username, 'testuser1');
+      done();
+    });
+  });
+  it('Login User1', function(done) {
+    request(app).post('/api/users/login')
+    .send({
+      username: 'testuser1',
+      password: 'test',
+    })
+    .expect(200)
+    .then(function(response) {
+      assert(response.body.id);
+      user1Auth = response.body.id;
+      done();
+    });
+  });
+  it('Create List as User1', function(done) {
+    request(app).post('/api/lists?access_token=' + user1Auth)
+    .send({
+      name: 'test list 2',
+      description: 'testing authenticated',
+      access_token: user1Auth,
+    })
+    .expect(200, done);
+  });
+  it('Get Lists as User1', function(done) {
+    request(app).get('/api/lists?access_token=' + user1Auth)
+    .expect(200)
+    .then(function(response) {
+      assert(response.body.length, 1);
+      done();
+    });
   });
 });
