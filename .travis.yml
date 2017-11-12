@@ -1,0 +1,20 @@
+sudo: required
+dist: trusty
+language: node_js
+node_js:
+- 8.9.1
+before_install:
+- openssl aes-256-cbc -K $encrypted_2848681e6ea3_key -iv $encrypted_2848681e6ea3_iv
+  -in client-secret.json.enc -out client-secret.json -d
+install:
+- npm install
+script: npm test
+deploy:
+  provider: gae
+  project:
+    secure: QbRQ81QYSr+ufvF9jBO6d7Zo5Sr/PQqUFZlG5vNDtaMkxdvdY/nmszOhYNS1EFWOOTcoH5BU3jfgQ5WPNWct182r+5hdE1jxmsyhVR2CJuReKjj1M+V+Ygp8bb/qyhLVhRikwdH2TmzfpassrK+jrlqez1P8LO3F6X/pmbH3B1xkHjaKaNbV1EJCYKuR7fe4XAEjcahXUowSsluCo03NDOpRahyOJfVlQYbMsh3NyHD2ZJaq84Smbpf9ASZ2v9G1QFGX3AC/FFuprxPv2pTRkZcv3sEV9S/56JkubQGUVqmm9OqN4jjpdyxhVPzLlF5jNke6gfHmMDIj0kW+dtfHUf2lQWptWWkhI9rsAjX6T00AIUT3pVfPpzepmq+pots48ZODTGJ8LCuzr1go4sGE/k68u22VQVdVm9pltc8jpkKMM+LaIBA9OwdyHZWG44aNcvjP4enFjNmfBg3TQ+Etfoh0WtxbpEgLHwODcY4npbYbSpluOYLn8ijMqSAjigbFGt6McUVXex8POt+SiK9UqMn1+OaHMgtvzOABPzqRjaAcuG0c4FtQcQiLUd6NgD/s9KEthg6+YasG94k1YUm3wFh4pvIjQ86qbNMp0OSelgjiPYbsm3SYNZGkCxxVCXMTdytlrV6BK8y9KfVKWQ3xYDOP5405W36DBQKn54LBtQo=
+  keyfile: "client-secret.json"
+stages:
+- name: deploy
+  if: branch = master
+
