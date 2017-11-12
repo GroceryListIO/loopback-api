@@ -25,8 +25,8 @@
     },
     "user": {
       "type": "belongsTo",
-      "model": "User",
-      "foreignKey": "id"
+      "model": "user",
+      "foreignKey": "ownerId"
     }
   },
   "acls": [
@@ -43,5 +43,24 @@
       "permission": "ALLOW"
     }
   ],
-  "methods": {}
+  "methods": {
+    "getLists": {
+      "returns": [
+        { "arg": "lists", 
+          "type": "array"
+        }
+      ],
+      "accepts": [
+        {
+          "arg": "options",
+          "type": "object",
+          "http": "optionsFromRequest"
+        }
+      ],
+      "http": {
+        "verb": "GET",
+        "path": "/"
+      }
+    }
+  }
 }

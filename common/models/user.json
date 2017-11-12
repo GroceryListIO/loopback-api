@@ -1,0 +1,16 @@
+{
+    "name": "user",
+    "base": "User",
+    "idInjection": true,
+    "properties": {},
+    "validations": [],
+    "relations": {
+        "lists": {
+            "type": "hasMany",
+            "model": "list",
+            "foreignKey": "ownerId"
+        }
+    },
+    "acls": [],
+    "methods": []
+}
