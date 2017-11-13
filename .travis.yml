@@ -8,6 +8,7 @@ before_install:
 - tar xvf secrets.tar
 install:
 - npm install
+- ls server/
 script: npm test
 deploy:
   provider: gae
