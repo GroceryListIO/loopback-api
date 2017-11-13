@@ -20,3 +20,4 @@ npm-debug.log
 client-secret.json
 secure-files.zip
 datasources.production.json
+secrets.tar

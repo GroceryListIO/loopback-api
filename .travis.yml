@@ -4,8 +4,8 @@ language: node_js
 node_js:
 - 8.9.1
 before_install:
-- openssl aes-256-cbc -K $encrypted_2848681e6ea3_key -iv $encrypted_2848681e6ea3_iv -in secure-files.zip.enc -out secure-files.zip -d
-- unzip secure-files.zip -d .
+- openssl aes-256-cbc -K $encrypted_22ed86d8969e_key -iv $encrypted_22ed86d8969e_iv -in secrets.tar.enc -out secrets.tar -d
+- tar xvf secrets.tar
 install:
 - npm install
 script: npm test
