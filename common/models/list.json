@@ -8,6 +8,12 @@
   },
   "injectOptionsFromRemoteContext": true,
   "properties": {
+    "id": {
+      "type": "string",
+      "id": true,
+      "defaultFn": "uuidv4",
+      "description": "List ID"
+    },
     "name": {
       "type": "string",
       "required": true

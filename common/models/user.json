@@ -2,7 +2,14 @@
     "name": "user",
     "base": "User",
     "idInjection": true,
-    "properties": {},
+    "properties": {
+        "id": {
+            "type": "string",
+            "id": true,
+            "defaultFn": "uuidv4",
+            "description": "User ID"
+        }
+    },
     "validations": [],
     "relations": {
         "lists": {
