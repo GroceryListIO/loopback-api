@@ -9,13 +9,16 @@
     "posttest": "npm run lint && nsp check"
   },
   "dependencies": {
+    "@google-cloud/logging-bunyan": "^0.7.0",
     "assert": "^1.4.1",
+    "bunyan": "^1.8.12",
     "compression": "^1.0.3",
     "cors": "^2.5.2",
     "helmet": "3.9.0",
     "loopback": "^3.0.0",
     "loopback-boot": "^2.6.5",
     "loopback-component-explorer": "5.2.0",
+    "loopback-component-logger": "^1.0.0",
     "mocha": "4.0.1",
     "serve-favicon": "^2.0.1",
     "strong-error-handler": "2.3.0",
