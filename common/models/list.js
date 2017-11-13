@@ -24,13 +24,14 @@ module.exports = function(List) {
 
     const modelName = ctx.Model.modelName;
     const scope = ctx.query.where ? JSON.stringify(ctx.query.where) : '<all records>';
+    // console.log(JSON.stringify(ctx))
     // console.log('%s: %s accessed %s:%s', new Date(), user, modelName, scope);
 
     if (scope != '<all records>') {
       // Verify user can access specific List
 
       // If the user is looking up their own ID
-      if (ctx.query.where && ctx.query.where.id == userId) {
+      if (ctx.query.where && ctx.query.where.userId == userId) {
         return next();
       }
 
