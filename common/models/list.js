@@ -2,7 +2,7 @@
 
 module.exports = function(List) {
   // Get Lists
-  List.getLists = function(options, cb) {
+  List.myLists = function(options, cb) {
     // User Info
     const token = options && options.accessToken;
     const userId = token && token.userId;

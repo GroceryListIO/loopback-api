@@ -1,3 +1,6 @@
 {
-    "loopback-component-explorer": null
+    "loopback-component-explorer": null,
+    "loopback-component-logger": {
+        "enableAPI": true
+    }
 }

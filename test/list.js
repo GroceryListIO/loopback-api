@@ -80,12 +80,20 @@ describe('Lists - Authenticated', function() {
   });
 
   it('Get Lists as User1', function(done) {
-    request(app).get('/api/lists?access_token=' + user1Auth)
+    request(app).get('/api/lists/myLists?access_token=' + user1Auth)
     .expect(200)
     .then(function(response) {
       assert(response.body.length, 1);
       done();
     });
+  });
+
+  it('Global List Reads Blocked', function (done) {
+    request(app).get('/api/lists?access_token=' + user1Auth)
+      .expect(401)
+      .then(function (response) {
+        done();
+      });
   });
 
   it('Get single list as User1', function(done) {

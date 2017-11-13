@@ -35,10 +35,6 @@
     "dataSource": "db",
     "public": false
   },
-  "Orginization": {
-    "dataSource": "db",
-    "public": true
-  },
   "List": {
     "dataSource": "db",
     "public": true

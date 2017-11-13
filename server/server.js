@@ -4,8 +4,9 @@ var loopback = require('loopback');
 var boot = require('loopback-boot');
 
 // Logging
-const bunyan = require('bunyan');
 if (process.env.NODE_ENV == 'production') {
+  console.log('Production Mode: Enabling logging.');
+  const bunyan = require('bunyan');
   const LoggingBunyan = require('@google-cloud/logging-bunyan'); // Google Cloud client library for Bunyan
   const loggingBunyan = new LoggingBunyan(); // Creates a Bunyan Stackdriver Logging client
   const rootLogger = bunyan.createLogger({
@@ -15,12 +16,6 @@ if (process.env.NODE_ENV == 'production') {
       {stream: process.stdout},
       loggingBunyan.stream(),
     ],
-  });
-  const logger = require('loopback-component-logger')(rootLogger);
-} else {
-  const rootLogger = bunyan.createLogger({
-    name: 'api',
-    level: 'info',
   });
   const logger = require('loopback-component-logger')(rootLogger);
 }

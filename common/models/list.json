@@ -26,7 +26,7 @@
     "user": {
       "type": "belongsTo",
       "model": "user",
-      "foreignKey": "ownerId"
+      "foreignKey": "id"
     }
   },
   "acls": [
@@ -41,15 +41,21 @@
       "principalType": "ROLE",
       "principalId": "$owner",
       "permission": "ALLOW"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "property": "find",
+      "principalId": "$everyone",
+      "permission": "DENY"
     }
   ],
   "methods": {
-    "getLists": {
-      "returns": [
-        { "arg": "lists", 
-          "type": "array"
-        }
-      ],
+    "myLists": {
+      "returns": 
+        { "type": "array",
+          "root": true
+        },
       "accepts": [
         {
           "arg": "options",
@@ -59,7 +65,7 @@
       ],
       "http": {
         "verb": "GET",
-        "path": "/"
+        "path": "/myLists"
       }
     }
   }

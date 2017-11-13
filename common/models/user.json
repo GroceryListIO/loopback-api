@@ -8,7 +8,7 @@
         "lists": {
             "type": "hasMany",
             "model": "list",
-            "foreignKey": "ownerId"
+            "foreignKey": "userId"
         }
     },
     "acls": [],
