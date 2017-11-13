@@ -2,6 +2,9 @@
 
 var loopback = require('loopback');
 var boot = require('loopback-boot');
+var RateLimit = require('express-rate-limit');
+
+var app = module.exports = loopback();
 
 // Logging
 if (process.env.NODE_ENV == 'production') {
@@ -20,7 +23,23 @@ if (process.env.NODE_ENV == 'production') {
   const logger = require('loopback-component-logger')(rootLogger);
 }
 
-var app = module.exports = loopback();
+// Rate Limit
+app.enable('trust proxy'); // only if you're behind a reverse proxy (Heroku, Bluemix, AWS if you use an ELB, custom Nginx setup, etc)
+
+var defaultApiLimiter = new RateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 100,
+  delayMs: 0, // disabled
+});
+
+var tightApiLimiter = new RateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 10,
+  delayMs: 0, // disabled
+});
+
+app.use(defaultApiLimiter);
+app.use('/api/Users/', tightApiLimiter);
 
 app.start = function() {
   // start the web server
