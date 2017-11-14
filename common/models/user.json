@@ -8,6 +8,10 @@
             "id": true,
             "defaultFn": "uuidv4",
             "description": "User ID"
+        },
+        "profilePic": {
+            "type": "string",
+            "description": "Users profile picture"
         }
     },
     "validations": [],
