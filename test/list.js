@@ -1,13 +1,13 @@
 'use strict';
 process.env.NODE_ENV = 'test';
 
-var request = require('supertest');
 var assert = require('assert');
 var app = require('../server/server');
+var request = require('supertest')(app);
 
-var user1Auth = '';
+var user1 = {};
+var user2 = {};
 var user1List = '';
-var user2Auth = '';
 
 describe('Lists - Unauthenticated', function() {
 
@@ -18,134 +18,144 @@ describe('Lists - Unauthenticated', function() {
     });
   });
 
-  it('Doesn\'t allow unauthenticated reading', function(done) {
-    request(app).get('/api/lists')
-    .expect(401, done);
-  });
-
-  it('Doesn\'t allow unauthenticated list creation', function(done) {
-    request(app).post('/api/lists')
-    .send({
-      name: 'test list 1',
-      description: 'testing unauthenticated',
-    })
-    .expect(401, done);
-  });
 });
 
 describe('Lists - Authenticated', function() {
 
   it('Register User1', function(done) {
-    request(app).post('/api/users')
-    .send({
-      username: 'testuser1',
-      email: 'testuser1@example.org',
-      password: 'test',
-    })
-    .expect(200)
-    .then(function(response) {
-      assert(response.body.email, 'testuser1@example.org');
-      assert(response.body.username, 'testuser1');
-      done();
-    });
+    request
+      .post('/api/users')
+      .send({
+        username: 'testuser1',
+        email: 'testuser1@example.org',
+        password: 'test',
+      })
+      .expect(200)
+      .expect('Content-Type', 'application/json; charset=utf-8')
+      .then(function(response) {
+        assert(response.body.email, 'testuser1@example.org');
+        assert(response.body.username, 'testuser1');
+        done();
+      });
   });
 
   it('Login User1', function(done) {
-    request(app).post('/api/users/login')
-    .send({
-      username: 'testuser1',
-      password: 'test',
-    })
-    .expect(200)
-    .then(function(response) {
-      assert(response.body.id);
-      user1Auth = response.body.id;
-      done();
-    });
+    request
+      .post('/api/users/login')
+      .send({
+        username: 'testuser1',
+        password: 'test',
+      })
+      .expect(200)
+      .expect('Content-Type', 'application/json; charset=utf-8')
+      .then(function(response) {
+        assert(response.body.id);
+        user1 = response.body;
+        user1.token = user1.id;
+        done();
+      });
   });
 
-  it('Create List as User1', function(done) {
-    request(app).post('/api/lists?access_token=' + user1Auth)
-    .send({
-      name: 'test list 2',
-      description: 'testing authenticated',
-      access_token: user1Auth,
-    })
-    .expect(200)
-    .then(response => {
-      assert(response.body.id);
-      user1List = response.body.id;
-      done();
-    });
+  it('Create list as User1', function(done) {
+    request
+      .post('/api/users/' + user1.userId + '/lists/?access_token=' + user1.token)
+      .send({
+        name: 'test list 1',
+        description: 'testing authenticated'
+      })
+      .expect(200)
+      .expect('Content-Type', 'application/json; charset=utf-8')
+      .then(response => {
+        assert(response.body.id);
+        user1List = response.body.id;
+        done();
+      });
   });
 
-  it('Get Lists as User1', function(done) {
-    request(app).get('/api/lists/myLists?access_token=' + user1Auth)
+  it('Get lists as User1', function(done) {
+    request
+    .get('/api/users/' + user1.userId + '/lists/?access_token=' + user1.token)
     .expect(200)
+    .expect('Content-Type', 'application/json; charset=utf-8')
     .then(function(response) {
       assert(response.body.length, 1);
       done();
     });
   });
 
-  it('Global List Reads Blocked', function (done) {
-    request(app).get('/api/lists?access_token=' + user1Auth)
+  it('Can\'t get lists as anonymous', function (done) {
+    request
+      .get('/api/users/' + user1.userId + '/lists/')
       .expect(401)
-      .then(function (response) {
+      .end(function (err, res) {
+        if (err) return done(err);
         done();
       });
   });
 
   it('Get single list as User1', function(done) {
-    request(app).get('/api/lists/'+ user1List +'?access_token=' + user1Auth)
+    request
+    .get('/api/users/' + user1.userId + '/lists/' + user1List + '/?access_token=' + user1.token)
     .expect(200)
+    .expect('Content-Type', 'application/json; charset=utf-8')
     .then(response => {
       assert(response.body.id);
       done();
     });
   });
 
+  it('Can\'t get single lists as anonymous', function (done) {
+    request
+      .get('/api/users/' + user1.userId + '/lists/' + user1List)
+      .expect(401)
+      .end(function (err, res) {
+        if (err) return done(err);
+        done();
+      });
+  });
+
 });
-
-
 
 describe('Lists - Authenticated Multiuser', function() {
 
-  it('Register User2', function(done) {
-    request(app).post('/api/users')
-    .send({
-      username: 'testuser2',
-      email: 'testuser2@example.org',
-      password: 'test',
-    })
-    .expect(200)
-    .then(function(response) {
-      assert(response.body.email, 'testuser2@example.org');
-      assert(response.body.username, 'testuser2');
-      done();
-    });
+  it('Register User1', function (done) {
+    request
+      .post('/api/users')
+      .send({
+        username: 'testuser2',
+        email: 'testuser12@example.org',
+        password: 'test',
+      })
+      .expect(200)
+      .expect('Content-Type', 'application/json; charset=utf-8')
+      .then(function (response) {
+        assert(response.body.email, 'testuser2@example.org');
+        assert(response.body.username, 'testuser2');
+        done();
+      });
   });
 
-  it('Login User2', function(done) {
-    request(app).post('/api/users/login')
-    .send({
-      username: 'testuser2',
-      password: 'test',
-    })
-    .expect(200)
-    .then(function(response) {
-      assert(response.body.id);
-      user2Auth = response.body.id;
-      done();
-    });
+  it('Login User1', function (done) {
+    request
+      .post('/api/users/login')
+      .send({
+        username: 'testuser2',
+        password: 'test',
+      })
+      .expect(200)
+      .expect('Content-Type', 'application/json; charset=utf-8')
+      .then(function (response) {
+        assert(response.body.id);
+        user2 = response.body;
+        user2.token = user2.id;
+        done();
+      });
   });
-
-  // TODO: Like top priority. 
 
   it('User2 Can\'t get list of User1 ', function(done) {
-    request(app).get('/api/lists/'+ user1List +'?access_token=' + user2Auth)
-    .expect(401, done);
+    request
+      .get('/api/users/' + user1.userId + '/lists/?access_token=' + user2.token)
+      .expect(401, done);
   });
-
 
 });

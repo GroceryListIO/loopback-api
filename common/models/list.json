@@ -39,44 +39,6 @@
       "foreignKey": "id"
     }
   },
-  "acls": [
-    {
-      "accessType": "*",
-      "principalType": "ROLE",
-      "principalId": "$unauthenticated",
-      "permission": "DENY"
-    },
-    {
-      "accessType": "*",
-      "principalType": "ROLE",
-      "principalId": "$owner",
-      "permission": "ALLOW"
-    },
-    {
-      "accessType": "*",
-      "principalType": "ROLE",
-      "property": "find",
-      "principalId": "$everyone",
-      "permission": "DENY"
-    }
-  ],
-  "methods": {
-    "myLists": {
-      "returns": 
-        { "type": "array",
-          "root": true
-        },
-      "accepts": [
-        {
-          "arg": "options",
-          "type": "object",
-          "http": "optionsFromRequest"
-        }
-      ],
-      "http": {
-        "verb": "GET",
-        "path": "/myLists"
-      }
-    }
-  }
+  "acls": [],
+  "methods": []
 }

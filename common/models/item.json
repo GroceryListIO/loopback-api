@@ -13,6 +13,15 @@
       "defaultFn": "uuidv4",
       "description": "Item ID"
     },
+    "listId": {
+      "type": "string",
+      "description": "List ID",
+      "required": true
+    },
+    "userId": {
+      "type": "string",
+      "required": true
+    },
     "name": {
       "type": "string",
       "required": true
@@ -36,21 +45,13 @@
       "type": "belongsTo",
       "model": "List",
       "foreignKey": "id"
+    },
+    "user": {
+      "type": "belongsTo",
+      "model": "user",
+      "foreignKey": "id"
     }
   },
-  "acls": [
-    {
-      "accessType": "*",
-      "principalType": "ROLE",
-      "principalId": "$unauthenticated",
-      "permission": "DENY"
-    },
-    {
-      "accessType": "*",
-      "principalType": "ROLE",
-      "principalId": "$owner",
-      "permission": "ALLOW"
-    }
-  ],
+  "acls": [],
   "methods": {}
 }

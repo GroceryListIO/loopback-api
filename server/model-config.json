@@ -42,10 +42,10 @@
   },
   "List": {
     "dataSource": "db",
-    "public": true
+    "public": false
   },
   "Item": {
     "dataSource": "db",
-    "public": true
+    "public": false
   }
 }
