@@ -28,8 +28,8 @@ module.exports = function(user) {
       template: path.resolve(__dirname, '../../server/emailTemplates/verify.ejs'),
       redirect: 'https://app.grocerylist.io',
       user: user,
-      host: "https://api.grocerylist.io",
-      port: 80
+      host: 'https://api.grocerylist.io',
+      port: 80,
     };
 
     userInstance.verify(options, function(err, response, next) {
