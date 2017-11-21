@@ -34,7 +34,7 @@ var defaultApiLimiter = new RateLimit({
 
 var tightApiLimiter = new RateLimit({
   windowMs: 1 * 60 * 1000, // 1 minute
-  max: 10,
+  max: 25,
   delayMs: 0, // disabled
 });
 

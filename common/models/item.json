@@ -10,13 +10,13 @@
     "id": {
       "type": "string",
       "id": true,
-      "defaultFn": "uuidv4",
-      "description": "Item ID"
+      "description": "Item ID",
+      "defaultFn": "uuidv4"
     },
     "listId": {
       "type": "string",
-      "description": "List ID",
-      "required": true
+      "required": true,
+      "description": "List ID"
     },
     "userId": {
       "type": "string",

@@ -1,81 +1,81 @@
 {
-    "name": "user",
-    "base": "User",
-    "idInjection": true,
-    "properties": {
-        "id": {
-            "type": "string",
-            "id": true,
-            "defaultFn": "uuidv4",
-            "description": "User ID"
-        },
-        "profilePic": {
-            "type": "string",
-            "description": "Users profile picture"
-        }
+  "name": "user",
+  "base": "User",
+  "idInjection": true,
+  "properties": {
+    "id": {
+      "type": "string",
+      "id": true,
+      "description": "User ID",
+      "defaultFn": "uuidv4"
     },
-    "validations": [],
-    "relations": {
-        "lists": {
-            "type": "hasMany",
-            "model": "List",
-            "foreignKey": "userId"
-        },
-        "items": {
-            "type": "hasMany",
-            "model": "Item",
-            "foreignKey": "userId"
-        }
+    "profilePic": {
+      "type": "string",
+      "description": "Users profile picture"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "lists": {
+      "type": "hasMany",
+      "model": "List",
+      "foreignKey": "userId"
     },
-    "acls": [
-        {
-            "principalType": "ROLE",
-            "principalId": "$owner",
-            "permission": "ALLOW",
-            "property": "__get__lists"
-        },
-        {
-            "principalType": "ROLE",
-            "principalId": "$owner",
-            "permission": "ALLOW",
-            "property": "__findById__lists"
-        },
-        {
-            "principalType": "ROLE",
-            "principalId": "$owner",
-            "permission": "ALLOW",
-            "property": "__create__lists"
-        },
-        {
-            "principalType": "ROLE",
-            "principalId": "$owner",
-            "permission": "ALLOW",
-            "property": "__get__items"
-        },
-        {
-            "principalType": "ROLE",
-            "principalId": "$owner",
-            "permission": "ALLOW",
-            "property": "__create__items"
-        },
-        {
-            "principalType": "ROLE",
-            "principalId": "$owner",
-            "permission": "ALLOW",
-            "property": "__delete__items"
-        },
-        {
-            "principalType": "ROLE",
-            "principalId": "$owner",
-            "permission": "ALLOW",
-            "property": "__destroyById__items"
-        },
-        {
-            "principalType": "ROLE",
-            "principalId": "$owner",
-            "permission": "ALLOW",
-            "property": "__updateById__items"
-        }
-    ],
-    "methods": []
+    "items": {
+      "type": "hasMany",
+      "model": "Item",
+      "foreignKey": "userId"
+    }
+  },
+  "acls": [
+    {
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "ALLOW",
+      "property": "__get__lists"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "ALLOW",
+      "property": "__findById__lists"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "ALLOW",
+      "property": "__create__lists"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "ALLOW",
+      "property": "__get__items"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "ALLOW",
+      "property": "__create__items"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "ALLOW",
+      "property": "__delete__items"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "ALLOW",
+      "property": "__destroyById__items"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "ALLOW",
+      "property": "__updateById__items"
+    }
+  ],
+  "methods": {}
 }

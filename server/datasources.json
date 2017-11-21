@@ -2,5 +2,24 @@
   "db": {
     "name": "db",
     "connector": "memory"
+  },
+  "emailDataSource": {
+    "name": "emailDataSource",
+    "connector": "mail",
+    "transports": [
+      {
+        "type": "smtp",
+        "host": "smtp.mailgun.org",
+        "secure": false,
+        "port": 2525,
+        "tls": {
+          "rejectUnauthorized": false
+        },
+        "auth": {
+          "user": "YourSandboxUser",
+          "pass": "YourSandboxPass"
+        }
+      }
+    ]
   }
 }

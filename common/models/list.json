@@ -11,8 +11,8 @@
     "id": {
       "type": "string",
       "id": true,
-      "defaultFn": "uuidv4",
-      "description": "List ID"
+      "description": "List ID",
+      "defaultFn": "uuidv4"
     },
     "name": {
       "type": "string",
@@ -40,5 +40,5 @@
     }
   },
   "acls": [],
-  "methods": []
+  "methods": {}
 }
