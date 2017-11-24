@@ -3,6 +3,7 @@
     "sources": [
       "loopback/common/models",
       "loopback/server/models",
+      "../node_modules/loopback-component-passport/lib/models",
       "../common/models",
       "./models"
     ],
@@ -24,6 +25,18 @@
   "AccessToken": {
     "dataSource": "db",
     "public": false
+  },
+  "ApplicationCredential": {
+    "dataSource": "db",
+    "public": true
+  },
+  "UserCredential": {
+    "dataSource": "db",
+    "public": true
+  },
+  "UserIdentity": {
+    "dataSource": "db",
+    "public": true
   },
   "ACL": {
     "dataSource": "db",

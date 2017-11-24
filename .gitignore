@@ -18,6 +18,7 @@ coverage
 node_modules
 npm-debug.log
 
+providers.json
 datasources.production.json
 client-secret.json
 secure-files.zip
